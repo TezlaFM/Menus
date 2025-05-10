@@ -1,0 +1,6 @@
+﻿@model Joke
+<h2>@Model.Category</h2>
+<p><strong>Safe:</strong> @string.Join(",", Model.Safe)</p>
+<p><strong>Tipo:</strong> @string.Join(",", Model.Type)</p>
+<p><strong>Setup:</strong> @string.Join(",", Model.Setup)</p>
+<p><strong>Delivery:</strong> @Model.Delivery</p>

@@ -1,6 +1,89 @@
 ﻿@{
+    Layout = null;
     ViewData["Title"] = "Privacy";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Use this page to detail your site's privacy policy.</p>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+    <!-- Contenedor VUE -->
+    <div id="app">
+        <h2>{{ mensaje }}</h2>
+        <p>Hola {{ nombre }}</p>
+        <mensaje texto="Hola"></mensaje>
+        <mensaje texto="Adios"></mensaje>
+        <movie-card title="Unforgiven" image="https://picsum.photos/200"></movie-card>
+        <movie-card title="Unforgiven" image="https://picsum.photos/200"></movie-card>
+        <div v-if="estado === 'cargando'"><h1>Cargando...</h1></div>
+        <div v-else-if="estado === 'error'"><h1>error</h1></div>
+        <div v-else><p>cargando</p></div>
+        <ul>
+            <li v-for="pelicula in peliculas" :key="pelicula">{{ pelicula }}</li>
+        </ul>
+        <ul>
+            <li v-for="(pelicula, index) in bpeliculas" :key="index">
+                {{pelicula.titulo}}, {{pelicula.imagen}}</li>
+        </ul>
+        <movie-card v-for="(pelicula, index) in bpeliculas" :key="index"
+                    :title="pelicula.titulo" :image="pelicula.imagen"></movie-card>
+        <ul>
+            <li v-for="frase in chuck" :key="index">{{frase.value}}</li>
+        </ul>
+        <movie-card v-for="(frase, index) in bchuck" :key="index"
+                    :title="frase.value" :image="frase.icon_url"></movie-card>
+    </div>
+    <!-- Scripts VUE -->
+    <script>
+        Vue.component('movie-card', {
+            props: ['image', 'title'],
+            template:
+            `<div>
+             <img width="100" v-bind:src="image" v-bind:alt="title"/>
+             <h2>{{ title }}
+            </div>`
+        });
+        Vue.component('mensaje', {
+            props: ['texto'],
+            template: '<h1><p>{{ texto }}</p></h1>'
+        });
+        new Vue({
+            el: '#app',
+            data: {
+                mensaje: 'Bienvenido!!!',
+                nombre: 'Chaval',
+                estado: 'cargando',
+                peliculas: ['xd','xd2','xd3','xd4'],
+                bpeliculas: [
+                    { titulo: 'xd', imagen: 'https://picsum.photos/200'},
+                    { titulo: 'xd2', imagen: 'https://picsum.photos/200'},
+                    { titulo: 'xd3', imagen: 'https://picsum.photos/200'},
+                    { titulo: 'xd4', imagen: 'https://picsum.photos/200'}
+                ],
+                chuck: [
+                    {"value": "Chuck Norris can skydive into outer space."},
+                    {"value": "The chief export of Chuck Norris is pain."},
+                    {"value": "Chuck Norris doesn't read books. He stares them down until he gets the information he wants."},
+                    {"value": "Time waits for no man. Unless that man is Chuck Norris."},
+                    {"value": "If you spell Chuck Norris in Scrabble, you win. Forever."}
+                    ],
+                bchuck: [
+                    {"icon_url": "https://picsum.photos/200",
+                     "value": "Chuck Norris can skydive into outer space."},
+                    {"icon_url": "https://picsum.photos/200",
+                     "value": "The chief export of Chuck Norris is pain."},
+                    {"icon_url": "https://picsum.photos/200",
+                     "value": "Chuck Norris doesn't read books. He stares them down until he gets the information he wants."},
+                    {"icon_url": "https://picsum.photos/200",
+                     "value": "Time waits for no man. Unless that man is Chuck Norris."},
+                    {"icon_url": "https://picsum.photos/200",
+                     "value": "If you spell Chuck Norris in Scrabble, you win. Forever."},
+                ]
+            }
+           
+        });
+    </script>
+</body>
+</html>
